@@ -8,9 +8,12 @@ metadata:
   annotations:
     spec.ingressClassName: traefik
 spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - rss
   rules:
-    - host: rss.sysgwan.xyz
-      http:
+    - http:
         paths:
           - pathType: Prefix
             path: /
