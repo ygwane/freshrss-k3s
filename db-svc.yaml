@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-db
+  namespace: freshrss
+spec:
+  selector:
+    app: freshrss-db-pod
+  type: ClusterIP
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432

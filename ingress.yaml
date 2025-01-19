@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: freshrss-ingress
+  namespace: freshrss
+  labels:
+    name: freshrss
+  annotations:
+    spec.ingressClassName: traefik
+spec:
+  rules:
+    - host: rss.sysgwan.xyz
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: svc-app
+                port:
+                  number: 80

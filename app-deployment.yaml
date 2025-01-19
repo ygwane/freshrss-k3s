@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freshrss-app
+  namespace: freshrss
+  labels:
+    name: freshrss-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: freshrss-app-pod
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: freshrss-app-pod
+    spec:
+      containers:
+        - image: freshrss/freshrss:latest
+          name: freshrss-app
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "128M"
+          env:
+            - name: TZ
+              value: Europe/Paris
+            - name: CRON_MIN
+              value: "*/20"
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - mountPath: /var/www/FreshRSS/data
+              name: data
+      volumes:
+        - name: data
+          emptyDir: {}

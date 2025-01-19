@@ -1,0 +1,1 @@
+# freshrss-k3s

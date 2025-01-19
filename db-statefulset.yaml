@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: freshrss-db
+  namespace: freshrss
+spec:
+  selector:
+    matchLabels:
+      app: freshrss-db-pod # has to match .spec.template.metadata.labels
+  serviceName: "freshrss-db-svc"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: freshrss-db-pod # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: freshrss-db
+          image: postgres:12-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: db
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_USER
+              value: freshrss
+            - name: POSTGRES_PASSWORD
+              value: freshrss
+            - name: POSTGRES_DB
+              value: freshrss
+  volumeClaimTemplates:
+    - metadata:
+        name: db
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: 2Gi
