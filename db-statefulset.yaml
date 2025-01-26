@@ -22,8 +22,8 @@ spec:
             - containerPort: 5432
               name: postgres
           volumeMounts:
-            - name: db
-              mountPath: /var/lib/postgresql/data
+            - name: lh-db-pvc
+              mountPath: /var/lib/postgresql
           env:
             - name: POSTGRES_USER
               value: freshrss
@@ -33,10 +33,10 @@ spec:
               value: freshrss
   volumeClaimTemplates:
     - metadata:
-        name: db
+        name: lh-db-pvc
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "local-path"
+        storageClassName: "longhorn"
         resources:
           requests:
             storage: 2Gi

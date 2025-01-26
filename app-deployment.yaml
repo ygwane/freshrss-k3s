@@ -40,4 +40,5 @@ spec:
               name: data
       volumes:
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: lh-app-pvc
