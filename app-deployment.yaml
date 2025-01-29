@@ -38,7 +38,12 @@ spec:
           volumeMounts:
             - mountPath: /var/www/FreshRSS/data
               name: data
+            - mountPath: /var/www/FreshRSS/extensions
+              name: extensions
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: lh-app-pvc
+        - name: extensions
+          persistentVolumeClaim:
+            claimName: lh-appext-pvc
