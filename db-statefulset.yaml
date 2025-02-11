@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: freshrss-db-pod # has to match .spec.template.metadata.labels
-  serviceName: "svc-db"
+  serviceName: "db-svc"
   replicas: 1 # by default is 1
   template:
     metadata:
@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: freshrss-db
-          image: postgres:12-alpine
+          image: postgres:17-alpine
           ports:
             - containerPort: 5432
               name: postgres

@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: svc-db
+  name: db-svc
   namespace: freshrss
 spec:
   selector:
